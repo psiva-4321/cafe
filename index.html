@@ -22,15 +22,24 @@
     </div>
 
     <nav>
-        <i class="fa-solid fa-magnifying-glass"></i>
-        <div class="search">
-            <input type="search" placeholder="Enter keywords to search" />
+        <img src="images/logo.jpg" alt="Cafe Niloufer Logo">
+        <div class="mobile-menu-wrapper">
+            <div class="search">
+                <input type="search" placeholder="Enter keywords to search" />
+                <a href="#">Home</a>
+                <a href="#">About us</a>
+                <a href="#">Niloufer Tea</a>
+                <a href="#">Outlets</a>
+                <a href="#">Shop Now</a>
+                <a href="#">Reach Us</a>
+                <a href="#">Login / Register</a>
+                <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+        </div>
+        <div class="subnav desktop-only">
             <a href="#">Home</a>
             <a href="#">About us</a>
             <a href="#">Niloufer Tea</a>
-        </div>
-        <img src="images/logo.jpg" alt="Cafe Niloufer Logo">
-        <div class="subnav">
             <a href="#">Outlets</a>
             <a href="#">Shop Now</a>
             <a href="#">Reach Us</a>
@@ -161,7 +170,11 @@
             <p>I go here for the best lemon tea in town. It's our favourite stop on the way home after a long day, for
                 this refreshing tea. Their multi grain bread is the best too. Looking forward to trying out other things
                 there. Everything is vegetarian. Service is great. You can even ask to be served in your car, so it gets
-                convenient when you are on the go.</p>
+                convenient when you are on the go. Ambience is great and yes, 👍 for the level of hygiene that they
+                maintain. The spirit of Hyderabad, a spirit that is carefree yet is very particular about quality and
+                taste. Today, after nearly four and a half decades of Cafe Niloufer's success, Cafe Niloufer has become
+                a household name in Hyderabad! With five outlets in Lakdikapul, Red Hills, Banjara Hills, Himayat Nagar,
+                and Hitec City we are committed to making sure everyone has access to great chai!</p>
         </div>
     </div>
 
@@ -228,13 +241,32 @@
             const nav = document.querySelector('nav');
             nav.appendChild(hamburger);
 
-            const search = document.querySelector('.search');
-            const subnav = document.querySelector('.subnav');
+            const mobileMenu = document.querySelector('.search');
 
             hamburger.addEventListener('click', function () {
                 this.classList.toggle('active');
-                search.classList.toggle('active');
-                subnav.classList.toggle('active');
+                mobileMenu.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+
+            // Close menu when clicking on overlay
+            document.addEventListener('click', function(event) {
+                if (document.body.classList.contains('menu-open') && 
+                    !mobileMenu.contains(event.target) && 
+                    !hamburger.contains(event.target)) {
+                    hamburger.classList.remove('active');
+                    mobileMenu.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                }
+            });
+
+            // Close menu when clicking close button (X)
+            mobileMenu.addEventListener('click', function(event) {
+                if (event.target === this && event.clientX > this.offsetWidth - 60 && event.clientY < 60) {
+                    hamburger.classList.remove('active');
+                    this.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                }
             });
         });
     </script>
